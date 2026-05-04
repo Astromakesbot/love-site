@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Kamu 💜</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+/* ===== BACKGROUND ===== */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  color: #4b3f72;
+  overflow-x: hidden;
+
+  background: linear-gradient(-45deg, #e6e6fa, #d8bfd8, #cdb5e8, #b19cd9);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+  0% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
+}
+
+/* floating soft orbs */
+.orb {
+  position: fixed;
+  width: 200px;
+  height: 200px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 50%;
+  filter: blur(40px);
+  animation: floatOrb 20s infinite ease-in-out;
+  z-index: 0;
+}
+
+@keyframes floatOrb {
+  0% {transform: translateY(0) translateX(0);}
+  50% {transform: translateY(-100px) translateX(50px);}
+  100% {transform: translateY(0) translateX(0);}
+}
+
+/* hearts */
+.heart {
+  position: fixed;
+  bottom: -10px;
+  animation: floatUp 6s linear;
+  color: #a084ca;
+  z-index: 1;
+}
+
+@keyframes floatUp {
+  0% {transform: translateY(0); opacity: 1;}
+  100% {transform: translateY(-100vh); opacity: 0;}
+}
+
+/* typing title */
+h1 {
+  text-align: center;
+  font-size: 3em;
+  margin-top: 30px;
+}
+
+/* buttons */
+.btn {
+  padding: 12px 20px;
+  background: #b57edc;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  margin: 10px;
+  transition: 0.2s;
+}
+.btn:active { transform: scale(0.9); }
+
+/* layout boxes */
+.love-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 40px;
+  gap: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.box {
+  width: 40%;
+  min-width: 280px;
+  padding: 25px;
+  border-radius: 20px;
+  color: white;
+
+  background: rgba(149, 117, 205, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+  border: 1px solid rgba(255,255,255,0.2);
+
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fadeUp 1.2s ease forwards;
+}
+
+.box.left { animation-delay: 0.3s; text-align:left; }
+.box.center { animation-delay: 0.7s; text-align:center; }
+
+@keyframes fadeUp {
+  to {opacity: 1; transform: translateY(0);}
+}
+
+.box:hover {
+  transform: translateY(-5px);
+  transition: 0.3s;
+}
+
+/* gallery */
+.gallery {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+.gallery img {
+  width: 200px;
+  margin: 10px;
+  border-radius: 15px;
+}
+
+/* pages */
+#secretMessage { display:none; text-align:center; }
+#missPage { display:none; text-align:center; padding:50px; }
+
+</style>
+</head>
+
+<body>
+
+<!-- ORBS -->
+<div class="orb" style="top:10%; left:10%;"></div>
+<div class="orb" style="top:60%; left:70%;"></div>
+<div class="orb" style="top:30%; left:50%;"></div>
+
+<!-- MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="apocalypse.mp3" type="audio/mpeg">
+</audio>
+
+<!-- TITLE -->
+<h1 id="typingText"></h1>
+
+<div style="text-align:center;">
+  <button class="btn" onclick="toggleMusic()">🎵 Play/Pause</button>
+  <button class="btn" onclick="showMessage()">Click this 💜</button>
+  <button class="btn" onclick="openMissPage()">Miss me? 💌</button>
+</div>
+
+<div id="secretMessage">
+  Kamu, you make everything better 💜 – DIVV
+</div>
+
+<!-- LOVE SECTION -->
+<div class="love-container">
+
+  <div class="box left">
+    <h2>For You 💜</h2>
+    <p>
+      Kamu,  
+      I don’t always say things perfectly, but I really mean this—  
+      you’ve become such an important part of my life.  
+      The way you make normal days feel special… I don’t take it for granted.
+    </p>
+  </div>
+
+  <div class="box center">
+    <p>
+      Being with you just feels right.  
+      Even the smallest moments with you mean more than they should.  
+      I just feel lucky to have you in my life. 💜  
+      <br><br>– DIVV
+    </p>
+  </div>
+
+</div>
+
+<!-- TIMER -->
+<div style="text-align:center; position:relative; z-index:2;">
+  <h2>Time Since We Met ⏳</h2>
+  <p id="timer" style="font-size:1.5em;"></p>
+</div>
+
+<!-- GALLERY -->
+<div class="gallery">
+  <h2>Our Memories 📸</h2>
+  <img src="photo1.jpg">
+  <img src="photo2.jpg">
+  <img src="photo3.jpg">
+</div>
+
+<!-- MISS PAGE -->
+<div id="missPage">
+  <h1>I Miss You Too Kamu 💜</h1>
+  <p>Always thinking about you 💕 – DIVV</p>
+  <button class="btn" onclick="goBack()">Go Back</button>
+</div>
+
+<script>
+
+// typing
+const text = "Hey Kamu 💜";
+let i = 0;
+function type() {
+  if (i < text.length) {
+    document.getElementById("typingText").innerHTML += text.charAt(i++);
+    setTimeout(type, 80);
+  }
+}
+window.onload = type;
+
+// music
+function toggleMusic() {
+  const m = document.getElementById("bgMusic");
+  m.paused ? m.play() : m.pause();
+}
+
+// message
+function showMessage() {
+  document.getElementById("secretMessage").style.display = "block";
+}
+
+// pages
+function openMissPage() {
+  document.getElementById("missPage").style.display = "block";
+}
+function goBack() {
+  document.getElementById("missPage").style.display = "none";
+}
+
+// timer
+function updateTimer() {
+  const start = new Date("2026-02-21");
+  const now = new Date();
+  const diff = now - start;
+
+  const d = Math.floor(diff/(1000*60*60*24));
+  const h = Math.floor((diff/(1000*60*60))%24);
+  const m = Math.floor((diff/(1000*60))%60);
+
+  document.getElementById("timer").innerHTML =
+    `${d} days ${h} hrs ${m} mins 💜`;
+}
+setInterval(updateTimer, 1000);
+
+// hearts on click
+document.addEventListener("click", function(e){
+  for(let i=0;i<5;i++){
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💜";
+    heart.style.left = e.clientX + "px";
+    heart.style.top = e.clientY + "px";
+    heart.style.fontSize = Math.random()*20+10 + "px";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(), 6000);
+  }
+});
+
+// floating hearts
+setInterval(()=>{
+  const h = document.createElement("div");
+  h.className = "heart";
+  h.innerHTML = "💜";
+  h.style.left = Math.random()*100+"vw";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+},500);
+
+</script>
+
+</body>
+</html>
