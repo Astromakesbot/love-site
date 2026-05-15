@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>For My Love 💜</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body {
+      font-family:'Poppins',sans-serif;
+      background:linear-gradient(135deg,#b57cff,#d8b4fe,#f3e8ff);
+      overflow-x:hidden;
+      color:white;
+      min-height:100vh;
+      position:relative;
+      background-attachment:fixed;
+      animation:backgroundGlow 20s infinite alternate;
+    }
+
+    @keyframes backgroundGlow {
+      0% {
+        background:linear-gradient(135deg,#b57cff,#d8b4fe,#f3e8ff);
+      }
+      50% {
+        background:linear-gradient(135deg,#f472b6,#a855f7,#d8b4fe);
+      }
+      100% {
+        background:linear-gradient(135deg,#b57cff,#f3e8ff,#a855f7);
+      }
+    }
+
+    /* Hearts Background */
+    .hearts {
+      position:fixed;
+      width:100%;
+      height:100%;
+      top:0;
+      left:0;
+      overflow:hidden;
+      z-index:0;
+      pointer-events:none;
+    }
+
+    .hearts span {
+      position:absolute;
+      bottom:-100px;
+      font-size:30px;
+      animation:floatHearts 8s linear infinite;
+      opacity:0.7;
+    }
+
+    .hearts span:nth-child(2n) {
+      font-size:40px;
+    }
+
+    .hearts span:nth-child(3n) {
+      font-size:25px;
+    }
+
+    @keyframes floatHearts {
+      0% {
+        transform:translateY(0) rotate(0deg) scale(1);
+        opacity:0.7;
+      }
+      25% {
+        opacity:1;
+      }
+      100% {
+        transform:translateY(-150vh) rotate(360deg) scale(1.5);
+        opacity:0;
+      }
+    }
+
+    /* Lock Screen */
+    #lockScreen {
+      position:fixed;
+      width:100%;
+      height:100%;
+      top:0;
+      left:0;
+      background:rgba(0,0,0,0.8);
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      z-index:99999;
+      backdrop-filter:blur(5px);
+    }
+
+    .lockBox {
+      width:90%;
+      max-width:400px;
+      background:rgba(255,255,255,0.15);
+      backdrop-filter:blur(20px);
+      border:1px solid rgba(255,255,255,0.3);
+      border-radius:30px;
+      padding:40px;
+      text-align:center;
+      box-shadow:0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    .lockBox h1 {
+      margin-bottom:15px;
+      font-size:2.5rem;
+      color:#f472b6;
+      text-shadow: 0 0 15px #9333ea;
+    }
+
+    .lockBox p {
+      margin-bottom:20px;
+      font-size:1.2rem;
+    }
+
+    .lockBox input {
+      width:100%;
+      padding:15px;
+      border:none;
+      outline:none;
+      border-radius:15px;
+      margin-bottom:20px;
+      font-size:1rem;
+      text-align:center;
+      background:rgba(255,255,255,0.2);
+      color:white;
+    }
+
+    .lockBox button {
+      width:100%;
+      padding:15px;
+      border:none;
+      border-radius:15px;
+      background:#f472b6;
+      color:white;
+      font-size:1rem;
+      font-weight:600;
+      cursor:pointer;
+      transition:0.3s;
+      box-shadow:0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    .lockBox button:hover {
+      transform:scale(1.05);
+      background:#9333ea;
+    }
+
+    #wrongPass {
+      margin-top:15px;
+      color:#ff6b6b;
+      font-weight:600;
+      font-size:1rem;
+    }
+
+    /* Container */
+    .container {
+      width:90%;
+      max-width:1200px;
+      margin:auto;
+      padding:40px 0;
+      position:relative;
+      z-index:2;
+    }
+
+    /* Top Counter */
+    .top-counter {
+      width:100%;
+      display:flex;
+      justify-content:center;
+      gap:20px;
+      flex-wrap:wrap;
+      margin-top:10px;
+      margin-bottom:30px;
+    }
+
+    .counter-box {
+      background:rgba(255,255,255,0.18);
+      backdrop-filter:blur(12px);
+      padding:15px 28px;
+      border-radius:50px;
+      font-weight:600;
+      box-shadow:0 10px 25px rgba(0,0,0,0.15);
+      border:1px solid rgba(255,255,255,0.2);
+    }
+
+    /* Hero */
+    .hero {
+      text-align:center;
+      margin-top:10px;
+    }
+
+    .hero h1 {
+      font-size:4rem;
+      font-weight:700;
+      text-shadow:0 0 15px rgba(255,255,255,0.4);
+      color:#fff;
+      text-transform:uppercase;
+    }
+
+    .hero p {
+      margin-top:10px;
+      font-size:1.5rem;
+      color:white;
+    }
+
+    /* Love Boxes */
+    .love-section {
+      display:flex;
+      gap:30px;
+      margin-top:60px;
+      flex-wrap:wrap;
+    }
+
+    .love-box {
+      flex:1;
+      min-width:300px;
+      background:rgba(255,255,255,0.15);
+      backdrop-filter:blur(10px);
+      border:1px solid rgba(255,255,255,0.2);
+      padding:30px;
+      border-radius:25px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.15);
+      transition:0.4s;
+    }
+
+    .love-box:hover {
+      transform:scale(1.05);
+    }
+
+    .love-box h2 {
+      margin-bottom:15px;
+      font-size:2rem;
+      color:#f472b6;
+    }
+
+    .love-box p {
+      line-height:1.8;
+      font-size:1rem;
+    }
+
+    /* Gallery */
+    .gallery-section {
+      margin-top:70px;
+      text-align:center;
+    }
+
+    .gallery-section h2 {
+      font-size:2.8rem;
+      margin-bottom:25px;
+      color:#f472b6;
+      text-shadow:0 0 15px rgba(255,255,255,0.7);
+    }
+
+    .gallery {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:20px;
+      margin-top:20px;
+    }
+
+    .gallery img {
+      width:100%;
+      height:260px;
+      object-fit:contain;
+      background:rgba(255,255,255,0.08);
+      border-radius:25px;
+      padding:10px;
+      box-shadow:0 20px 40px rgba(0,0,0,0.25);
+      transition:0.4s;
+    }
+
+    .gallery img:hover {
+      transform:scale(1.04);
+    }
+
+    /* Buttons */
+    .buttons {
+      display:flex;
+      justify-content:center;
+      gap:20px;
+      flex-wrap:wrap;
+      margin:30px 0;
+    }
+
+    .btn {
+      padding:15px 35px;
+      border:none;
+      border-radius:50px;
+      font-size:1rem;
+      cursor:pointer;
+      transition:0.3s;
+      font-weight:600;
+      box-shadow:0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .btn1 {
+      background:white;
+      color:#9333ea;
+    }
+
+    .btn2 {
+      background:#f472b6;
+      color:white;
+    }
+
+    .btn3 {
+      background:#9333ea;
+      color:white;
+    }
+
+    .btn:hover {
+      transform:scale(1.08);
+    }
+
+    /* Popup */
+    .popup {
+      position:fixed;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%) scale(0);
+      background:white;
+      color:#9333ea;
+      padding:40px;
+      border-radius:25px;
+      width:90%;
+      max-width:500px;
+      text-align:center;
+      z-index:1000;
+      transition:0.4s;
+      box-shadow:0 20px 50px rgba(0,0,0,0.4);
+    }
+
+    .popup.active {
+      transform:translate(-50%,-50%) scale(1);
+    }
+
+    .popup h2 {
+      margin-bottom:15px;
+      font-size:2rem;
+    }
+
+    .popup button {
+      margin-top:20px;
+      padding:12px 25px;
+      border:none;
+      background:#9333ea;
+      color:white;
+      border-radius:30px;
+      cursor:pointer;
+    }
+
+    /* Music Button */
+    #musicBtn {
+      position:fixed;
+      top:20px;
+      right:20px;
+      z-index:999;
+      padding:15px 28px;
+      border:none;
+      border-radius:40px;
+      background:rgba(255,255,255,0.3);
+      backdrop-filter:blur(10px);
+      color:white;
+      font-weight:600;
+      cursor:pointer;
+      transition:0.3s;
+      box-shadow:0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    #musicBtn:hover {
+      transform:scale(1.08);
+      background:#9333ea;
+    }
+
+    /* Footer */
+    .footer {
+      text-align:center;
+      margin-top:70px;
+      padding-bottom:120px;
+      font-size:1.2rem;
+      color:white;
+    }
+
+    @media(max-width:768px) {
+      .hero h1 {
+        font-size:2.8rem;
+      }
+
+      .gallery img {
+        height:220px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Lock Screen -->
+<div id="lockScreen">
+  <div class="lockBox">
+    <h1>💜 Private Website 💜</h1>
+    <p>Enter the secret code to continue</p>
+
+    <input type="password" id="passInput" placeholder="Enter Code">
+
+    <button onclick="checkPassword()">Unlock</button>
+
+    <p id="wrongPass"></p>
+  </div>
+</div>
+
+<!-- Hearts -->
+<div class="hearts">
+  <span style="left:5%; animation-delay:0s;">💜</span>
+  <span style="left:15%; animation-delay:2s;">🤍</span>
+  <span style="left:25%; animation-delay:4s;">💜</span>
+  <span style="left:35%; animation-delay:1s;">🤍</span>
+  <span style="left:45%; animation-delay:3s;">💜</span>
+  <span style="left:55%; animation-delay:5s;">🤍</span>
+  <span style="left:65%; animation-delay:2s;">💜</span>
+  <span style="left:75%; animation-delay:4s;">🤍</span>
+  <span style="left:85%; animation-delay:1s;">💜</span>
+  <span style="left:95%; animation-delay:3s;">🤍</span>
+</div>
+
+<!-- Music -->
+<audio id="bgMusic" loop>
+  <source src="apocalypse.mp3" type="audio/mpeg">
+</audio>
+
+<button id="musicBtn">▶ Play Music</button>
+
+<!-- Main Content -->
+<div class="container">
+
+  <!-- Counters -->
+  <div class="top-counter">
+    <div class="counter-box">
+      💜 Noticed Kamu Since <span id="noticeDays"></span> Days
+    </div>
+
+    <div class="counter-box">
+      💍 Together With Kamu Since <span id="loveDays"></span> Days
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>For My Love 💜</h1>
+    <p>You make every moment magical, Kamu ✨</p>
+  </div>
+
+  <!-- Buttons -->
+  <div class="buttons">
+    <button class="btn btn1" onclick="showPopup('Kamu, you are my favorite person 💜')">
+      Click Me
+    </button>
+
+    <button class="btn btn3" onclick="showPopup('Divv loves Kamu more every single day ✨')">
+      Future Plans
+    </button>
+  </div>
+
+  <!-- Love Boxes -->
+  <div class="love-section">
+
+    <div class="love-box">
+      <h2>Why I Love Kamu 💜</h2>
+
+      <p>
+        Kamu, you are the best thing that ever happened to me.
+        Your smile makes my day brighter, and your presence makes everything feel complete.
+        Every moment with you feels special and unforgettable.
+      </p>
+    </div>
+
+    <div class="love-box">
+      <h2>Our Story ✨</h2>
+
+      <p>
+        From random conversations to endless memories,
+        every second with you became my favorite chapter.
+        Thank you, Kamu, for being my happiness, comfort, and peace.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- Gallery -->
+  <div class="gallery-section">
+
+    <h2>Our Memories 📸</h2>
+
+    <div class="gallery">
+
+      <img src="photo1.jpg">
+
+      <img src="photo2.jpg">
+
+      <img src="photo3.jpg">
+
+    </div>
+
+  </div>
+
+  <!-- Bottom Button -->
+  <div class="buttons">
+    <button class="btn btn2" onclick="showPopup('Kamu, you are my universe 💜')">
+      Secret Message
+    </button>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    Made with endless love by Divv for Kamu 💜
+  </div>
+
+</div>
+
+<!-- Popup -->
+<div class="popup" id="popup">
+  <h2 id="popupText"></h2>
+
+  <button onclick="closePopup()">
+    Close
+  </button>
+</div>
+
+<script>
+
+  /* Day Counter */
+  const noticedDate = new Date("2026-02-21");
+  const relationshipDate = new Date("2026-03-19");
+  const today = new Date();
+
+  const noticeDiff = Math.floor(
+    (today - noticedDate) / (1000 * 60 * 60 * 24)
+  );
+
+  const loveDiff = Math.floor(
+    (today - relationshipDate) / (1000 * 60 * 60 * 24)
+  );
+
+  document.getElementById("noticeDays").innerText = noticeDiff;
+  document.getElementById("loveDays").innerText = loveDiff;
+
+  /* Popup */
+  function showPopup(message) {
+    document.getElementById("popup").classList.add("active");
+    document.getElementById("popupText").innerText = message;
+  }
+
+  function closePopup() {
+    document.getElementById("popup").classList.remove("active");
+  }
+
+  /* Music Player */
+  const music = document.getElementById("bgMusic");
+  const musicBtn = document.getElementById("musicBtn");
+  let isPlaying = false;
+
+  musicBtn.addEventListener("click", () => {
+    if(!isPlaying) {
+      music.play();
+      musicBtn.innerHTML = "⏸ Pause Music";
+      isPlaying = true;
+    } else {
+      music.pause();
+      musicBtn.innerHTML = "▶ Play Music";
+      isPlaying = false;
+    }
+  });
+
+  /* Password Lock */
+  function checkPassword() {
+    const password = document.getElementById("passInput").value;
+
+    if(password === "79") {
+      document.getElementById("lockScreen").style.display = "none";
+    } else {
+      document.getElementById("wrongPass").innerHTML = "Wrong code 💔";
+    }
+  }
+
+</script>
+
+</body>
+</html>
